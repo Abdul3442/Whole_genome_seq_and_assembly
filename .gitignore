@@ -1,0 +1,29 @@
+# Raw Sequencing Data (Large files > 100MB)
+01_raw_data/
+outputs/02_trimmed/
+
+# Binary Alignments & Heavy Indexes
+*.bam
+*.bam.bai
+*.csi
+*.bwt
+*.sa
+*.pac
+*.amb
+*.ann
+
+# Intermediate Assembler Dumps
+outputs/03_assembly/flye_assembly/00-assembly/
+outputs/03_assembly/flye_assembly/10-consensus/
+outputs/03_assembly/flye_assembly/20-repeat/
+outputs/03_assembly/flye_assembly/30-contigger/
+outputs/03_assembly/flye_assembly/40-polishing/
+outputs/03_assembly/flye_assembly/flye.log
+outputs/03_assembly/flye_assembly/params.json
+
+# Logs and system caches
+*.log
+.kilo/
+__pycache__/
+*.pyc
+.DS_Store

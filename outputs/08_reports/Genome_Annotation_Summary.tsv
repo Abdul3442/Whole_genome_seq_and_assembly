@@ -1,0 +1,11 @@
+Metric	Value	Biological_Significance
+Predicted Coding Sequences (CDS)	3,525	Standard bacterial protein-coding complement for L. pentosus
+Start Codon ATG (Methionine)	2,946 (83.6%)	Canonical bacterial translation initiation
+Start Codon GTG (Valine)	396 (11.2%)	Alternative Firmicutes translation start
+Start Codon TTG (Leucine)	181 (5.1%)	Alternative Firmicutes translation start
+Other Start Codons	2 (0.1%)	Rare non-canonical initiations
+Average CDS Length (bp)	879 bp	Typical prokaryotic open reading frame length
+Median CDS Length (bp)	765 bp	Consistent with core metabolic and transport enzymes
+Whole-Genome GC Content	46.07%	Standard GC profile for Lactiplantibacillus pentosus
+Host Chromosome Replicons	2 large contigs	Core chromosome: contig_1 (2.16 Mbp) and contig_2 (1.35 Mbp)
+Resolved Circular Plasmids	7 closed plasmids	Encode bacteriocins, plantaricin, and sugar transport
