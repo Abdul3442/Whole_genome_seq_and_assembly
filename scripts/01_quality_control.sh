@@ -39,7 +39,6 @@ if [ ! -f "${CLEAN_SHORT_1}" ]; then
         --trim_poly_g \
         -q 20 -u 30 -l 50 \
         -w "${THREADS}" \
-        --html outputs/01_qc/fastp.html \
         --json outputs/01_qc/fastp.json
     echo "[SUCCESS] Illumina fastp filtering completed."
 else

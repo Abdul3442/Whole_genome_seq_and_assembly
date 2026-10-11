@@ -2,6 +2,7 @@
 # ==============================================================================
 # Script: 05_generate_reports.sh
 # Purpose: Generate comprehensive humanized reports in outputs/08_reports/
+# Format:  Pure Linux Markdown (.md), Plain Text (.txt), and TSV Tables (No HTML)
 # ==============================================================================
 
 set -euo pipefail
@@ -25,13 +26,13 @@ echo -e "Sequencing_Platform\tTotal_Reads\tMapped_Reads\tMapping_Rate_Pct\tPrope
 ILL_TOTAL=$(grep "in total" outputs/06_alignment/illumina_flagstat.txt | awk '{print $1}')
 ILL_MAP=$(grep "mapped (" outputs/06_alignment/illumina_flagstat.txt | head -n 1 | awk '{print $1}')
 ILL_MAP_PCT=$(grep "mapped (" outputs/06_alignment/illumina_flagstat.txt | head -n 1 | grep -o '[0-9.]\+%' | head -n 1)
-ILL_PAIRED_PCT=$(grep "properly paired (" outputs/06_alignment/illumina_flagstat.txt | grep -o '[0-9.]\+%' | head -n 1)
+ILL_PAIRED_PCT=$(grep "properly paired (" outputs/06_alignment/illumina_flagstat.txt | head -n 1 | grep -o '[0-9.]\+%' | head -n 1)
 echo -e "Illumina NovaSeq 6000\t${ILL_TOTAL}\t${ILL_MAP}\t${ILL_MAP_PCT}\t${ILL_PAIRED_PCT}" >> "${REP_DIR}/Read_Alignment_Statistics.tsv"
 
 ONT_TOTAL=$(grep "in total" outputs/06_alignment/nanopore_flagstat.txt | awk '{print $1}')
 ONT_MAP=$(grep "mapped (" outputs/06_alignment/nanopore_flagstat.txt | head -n 1 | awk '{print $1}')
 ONT_MAP_PCT=$(grep "mapped (" outputs/06_alignment/nanopore_flagstat.txt | head -n 1 | grep -o '[0-9.]\+%' | head -n 1)
-echo -e "Oxford Nanopore MinION\t${ONT_TOTAL}\t${ONT_MAP}\t${ONT_MAP_PCT}\tN/A (Single-end)" >> "${REP_DIR}/Read_Alignment_Statistics.tsv"
+echo -e "Oxford Nanopore MinION\t${ONT_TOTAL}\t${ONT_MAP}\t${ONT_MAP_PCT}\tSingle-end" >> "${REP_DIR}/Read_Alignment_Statistics.tsv"
 
 # 3. Generate Functional Annotation Summary TSV
 cat << 'ANN_EOF' > "${REP_DIR}/Genome_Annotation_Summary.tsv"
@@ -119,102 +120,79 @@ Organism: Lactiplantibacillus pentosus LP309 (NCBI TaxID: 1589)
 ================================================================================
 TXT_EOF
 
-# 5. Generate Standalone HTML Report
-cat << 'HTML_EOF' > "${REP_DIR}/WGS_Comprehensive_Report.html"
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>WGS & Hybrid Assembly Report - Lactiplantibacillus pentosus LP309</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 30px; background: #F8F9FA; color: #212529; }
-        .container { max-width: 1200px; margin: 0 auto; background: #FFFFFF; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-        h1 { color: #1D3557; border-bottom: 2px solid #E63946; padding-bottom: 12px; margin-top: 0; }
-        h2 { color: #2E75B6; border-bottom: 1px solid #DEE2E6; padding-bottom: 8px; margin-top: 35px; }
-        .meta-box { background: #EDF2F7; border-left: 4px solid #2E75B6; padding: 15px 20px; border-radius: 4px; margin-bottom: 25px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin: 20px 0; }
-        .card { background: #FFFFFF; border: 1px solid #E2E8F0; padding: 15px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .card .title { font-size: 12px; text-transform: uppercase; color: #718096; font-weight: bold; margin-bottom: 6px; }
-        .card .value { font-size: 22px; font-weight: bold; color: #1A202C; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th, td { border: 1px solid #E2E8F0; padding: 10px 14px; text-align: left; }
-        th { background: #F1F5F9; color: #334155; }
-        tr:nth-child(even) { background: #F8FAFC; }
-        .badge-circ { background: #DEF7EC; color: #03543F; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; }
-        .badge-lin { background: #E2E8F0; color: #475569; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; }
-        .figure-box { margin: 30px 0; text-align: center; background: #FFFFFF; border: 1px solid #E2E8F0; padding: 20px; border-radius: 8px; }
-        .figure-box img { max-width: 100%; height: auto; border-radius: 4px; border: 1px solid #CBD5E1; }
-        .figure-caption { font-size: 13px; color: #64748B; margin-top: 10px; font-style: italic; }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h1>Whole Genome Sequencing & De Novo Assembly Report</h1>
-    <div class="meta-box">
-        <strong>Organism:</strong> <em>Lactiplantibacillus pentosus</em> strain <strong>LP309</strong> (NCBI TaxID: 1589)<br>
-        <strong>Sequencing Strategy:</strong> Hybrid Sequencing &mdash; Illumina NovaSeq 6000 (ERR15819122) + Oxford Nanopore MinION (ERR15819127)<br>
-        <strong>Assembler & Pipeline:</strong> Flye v2.9.6 (Nano-HQ) | Prodigal v2.6.3 | BWA-MEM & Minimap2
-    </div>
+# 5. Generate Pure Markdown Comprehensive Report (100% Native Markdown, No HTML)
+cat << 'MD_EOF' > "${REP_DIR}/WGS_Comprehensive_Report.md"
+# Whole Genome Sequencing & De Novo Assembly Comprehensive Report
+**Organism**: *Lactiplantibacillus pentosus* strain **LP309** (NCBI TaxID: 1589)  
+**Sequencing Strategy**: Hybrid Sequencing &mdash; Illumina NovaSeq 6000 (ERR15819122) + Oxford Nanopore MinION (ERR15819127)  
+**Software Pipeline**: Flye v2.9.6 | Prodigal v2.6.3 | BWA-MEM v0.7.19 | Minimap2 v2.31  
 
-    <div class="grid">
-        <div class="card"><div class="title">Total Assembled Size</div><div class="value">3.795 Mbp</div></div>
-        <div class="card"><div class="title">Contig N50</div><div class="value">2.157 Mbp</div></div>
-        <div class="card"><div class="title">Overall GC Content</div><div class="value">46.07%</div></div>
-        <div class="card"><div class="title">Circular Plasmids</div><div class="value">7 Plasmids</div></div>
-        <div class="card"><div class="title">Predicted CDS (Genes)</div><div class="value">3,525 CDS</div></div>
-        <div class="card"><div class="title">Alignment Rate (Illumina)</div><div class="value">99.58%</div></div>
-    </div>
+---
 
-    <h2>1. Replicon & Assembly Architecture</h2>
-    <table>
-        <thead>
-            <tr><th>Contig ID</th><th>Length (bp)</th><th>GC Content (%)</th><th>Coverage (X)</th><th>Conformation</th><th>Biological Classification</th></tr>
-        </thead>
-        <tbody>
-            <tr><td><strong>contig_1</strong></td><td>2,156,644</td><td>46.71%</td><td>132X</td><td><span class="badge-lin">Linear</span></td><td>Chromosome major scaffold</td></tr>
-            <tr><td><strong>contig_2</strong></td><td>1,353,778</td><td>46.11%</td><td>182X</td><td><span class="badge-lin">Linear</span></td><td>Chromosome secondary scaffold</td></tr>
-            <tr><td><strong>contig_12</strong></td><td>65,557</td><td>41.97%</td><td>187X</td><td><span class="badge-circ">Circular</span></td><td>Circular Plasmid 1 (65.6 kb)</td></tr>
-            <tr><td><strong>contig_13</strong></td><td>60,695</td><td>39.79%</td><td>303X</td><td><span class="badge-circ">Circular</span></td><td>Circular Plasmid 2 (60.7 kb)</td></tr>
-            <tr><td><strong>contig_9</strong></td><td>46,488</td><td>40.14%</td><td>268X</td><td><span class="badge-circ">Circular</span></td><td>Circular Plasmid 3 (46.5 kb)</td></tr>
-            <tr><td><strong>contig_3</strong></td><td>38,531</td><td>41.31%</td><td>197X</td><td><span class="badge-lin">Linear</span></td><td>Unplaced chromosomal repeat</td></tr>
-            <tr><td><strong>contig_10</strong></td><td>21,244</td><td>46.15%</td><td>304X</td><td><span class="badge-lin">Linear</span></td><td>Unplaced chromosomal repeat</td></tr>
-            <tr><td><strong>contig_11</strong></td><td>17,521</td><td>37.82%</td><td>200X</td><td><span class="badge-circ">Circular</span></td><td>Circular Plasmid 4 (17.5 kb)</td></tr>
-            <tr><td><strong>contig_14</strong></td><td>12,696</td><td>38.36%</td><td>692X</td><td><span class="badge-circ">Circular</span></td><td>Circular Plasmid 5 (12.7 kb, 4.4x copy)</td></tr>
-            <tr><td><strong>contig_8</strong></td><td>9,889</td><td>45.10%</td><td>179X</td><td><span class="badge-circ">Circular</span></td><td>Circular Plasmid 6 (9.9 kb)</td></tr>
-            <tr><td><strong>contig_4</strong></td><td>8,391</td><td>38.22%</td><td>123X</td><td><span class="badge-circ">Circular</span></td><td>Circular Plasmid 7 (8.4 kb)</td></tr>
-            <tr><td><strong>contig_6</strong></td><td>3,686</td><td>42.97%</td><td>164X</td><td><span class="badge-lin">Linear</span></td><td>Small unplaced contig</td></tr>
-        </tbody>
-    </table>
+## 1. Executive Summary & Quality Benchmarks
 
-    <h2>2. Publication Figures</h2>
-    <div class="figure-box">
-        <img src="../07_figures/Figure1_circular_genome_map.png" alt="Figure 1">
-        <div class="figure-caption">Figure 1: Circular Genome Atlas of Lactiplantibacillus pentosus LP309 (Chromosome Contig 1, CDS, GC & GC Skew).</div>
-    </div>
+| Metric | Measured Value | Biological Significance |
+| :--- | :--- | :--- |
+| **Total Assembled Genome Length** | **3,795,120 bp (~3.795 Mbp)** | Complete representation of *L. pentosus* genome |
+| **Contig N50** | **2,156,644 bp (>2.15 Mbp)** | Near-chromosomal contiguity ($L50 = 1$) |
+| **Contig N75** | **1,353,778 bp (>1.35 Mbp)** | Secondary chromosome scaffold ($L75 = 2$) |
+| **Overall GC Content** | **46.07%** | Canonical GC% for *Lactiplantibacillus* species |
+| **Replicons Resolved** | **Host Chromosome + 7 Plasmids** | Full mobilome and core genome captured |
+| **Predicted Coding Sequences (CDS)** | **3,525 CDS** | Full bacterial protein complement |
+| **Illumina Alignment Rate** | **99.58%** | 99.06% properly paired short reads |
+| **Nanopore Alignment Rate** | **99.98%** | Virtually 100% long-read genome capture |
 
-    <div class="figure-box">
-        <img src="../07_figures/Figure2_qc_and_trimming_profiles.png" alt="Figure 2">
-        <div class="figure-caption">Figure 2: Quality Control Diagnostics (NovaSeq per-cycle quality, GC composition, and MinION length distribution).</div>
-    </div>
+---
 
-    <div class="figure-box">
-        <img src="../07_figures/Figure3_assembly_contiguity_curves.png" alt="Figure 3">
-        <div class="figure-caption">Figure 3: De Novo Assembly Contiguity, N50 Progression & 7 Circular Plasmids Spectrum.</div>
-    </div>
+## 2. Replicon Architecture & Plasmid Classification
 
-    <div class="figure-box">
-        <img src="../07_figures/Figure4_genome_coverage_depth.png" alt="Figure 4">
-        <div class="figure-caption">Figure 4: Genome-wide Sequencing Coverage Depth Profiles (Illumina NovaSeq & Oxford Nanopore MinION).</div>
-    </div>
+| Contig ID | Length (bp) | GC Content (%) | Coverage Depth | Conformation | Biological Classification |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **contig_1** | 2,156,644 | 46.71% | 132X | Linear | Chromosome major scaffold |
+| **contig_2** | 1,353,778 | 46.11% | 182X | Linear | Chromosome secondary scaffold |
+| **contig_12** | 65,557 | 41.97% | 187X | **Circular** | Circular Plasmid 1 (65.6 kb) |
+| **contig_13** | 60,695 | 39.79% | 303X | **Circular** | Circular Plasmid 2 (60.7 kb) |
+| **contig_9** | 46,488 | 40.14% | 268X | **Circular** | Circular Plasmid 3 (46.5 kb) |
+| **contig_3** | 38,531 | 41.31% | 197X | Linear | Unplaced chromosomal repeat |
+| **contig_10** | 21,244 | 46.15% | 304X | Linear | Unplaced chromosomal repeat |
+| **contig_11** | 17,521 | 37.82% | 200X | **Circular** | Circular Plasmid 4 (17.5 kb) |
+| **contig_14** | 12,696 | 38.36% | 692X | **Circular** | Circular Plasmid 5 (12.7 kb, 4.4x copy) |
+| **contig_8** | 9,889 | 45.10% | 179X | **Circular** | Circular Plasmid 6 (9.9 kb) |
+| **contig_4** | 8,391 | 38.22% | 123X | **Circular** | Circular Plasmid 7 (8.4 kb) |
+| **contig_6** | 3,686 | 42.97% | 164X | Linear | Small unplaced contig |
 
-    <div class="figure-box">
-        <img src="../07_figures/Figure5_functional_annotation_summary.png" alt="Figure 5">
-        <div class="figure-caption">Figure 5: High-Resolution Structural & Functional Genome Annotation (CDS Length, Start Codon Usage, Density).</div>
-    </div>
-</div>
-</body>
-</html>
-HTML_EOF
+---
 
-echo "[SUCCESS] All reports generated in ${REP_DIR}:"
+## 3. Publication Figures
+
+### Figure 1: Circular Genome Atlas of *Lactiplantibacillus pentosus* LP309
+![Figure 1: Circular Genome Atlas](../07_figures/Figure1_circular_genome_map.png)
+*Figure 1: Circular genome atlas showing Chromosome Contig 1 (2.16 Mbp), Forward and Reverse CDS, GC Content deviation, and GC Skew dynamics.*
+
+---
+
+### Figure 2: Sequencing Quality & Preprocessing Diagnostics
+![Figure 2: Quality Diagnostics](../07_figures/Figure2_qc_and_trimming_profiles.png)
+*Figure 2: High-throughput preprocessing benchmarks: (A) Illumina per-cycle base quality progression, (B) Base composition dynamics, (C) Oxford Nanopore length distribution, and (D) Quality filtering yield benchmarks.*
+
+---
+
+### Figure 3: De Novo Assembly Contiguity & Plasmid Spectrum
+![Figure 3: Assembly Contiguity](../07_figures/Figure3_assembly_contiguity_curves.png)
+*Figure 3: Assembly resolution metrics: (A) Cumulative assembly size curve, (B) Contig coverage vs. length spectrum, (C) Replicon architecture, and (D) GC content divergence between chromosome and mobile plasmids.*
+
+---
+
+### Figure 4: Genome-wide Sequencing Coverage Depth Profiles
+![Figure 4: Sequencing Coverage Depth](../07_figures/Figure4_genome_coverage_depth.png)
+*Figure 4: Sequencing depth profiles: (A) Illumina NovaSeq short-read depth (~680X), (B) Oxford Nanopore MinION depth (~159X), (C) Plasmid copy number dynamics, and (D) Cumulative breadth of coverage CDF.*
+
+---
+
+### Figure 5: Functional Genome Annotation Breakdown
+![Figure 5: Functional Annotation](../07_figures/Figure5_functional_annotation_summary.png)
+*Figure 5: High-resolution structural and functional genome annotation: (A) CDS length distribution, (B) Translation initiation start codon usage, (C) Replicon gene density, and (D) Coding GC density profile.*
+MD_EOF
+
+echo "[SUCCESS] All reports generated in ${REP_DIR} (Pure Markdown, Text & TSV):"
 ls -lh "${REP_DIR}/"
