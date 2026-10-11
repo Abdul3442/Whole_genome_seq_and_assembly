@@ -1,6 +1,7 @@
 # Whole Genome Sequencing & De Novo Assembly Comprehensive Report
 **Organism**: *Lactiplantibacillus pentosus* strain **LP309** (NCBI TaxID: 1589)  
-**Sequencing Strategy**: Hybrid Sequencing &mdash; Illumina NovaSeq 6000 (ERR15819122) + Oxford Nanopore MinION (ERR15819127)  
+**Data Accessions**: Illumina NovaSeq 6000 (**ERR15819122**) + Oxford Nanopore MinION (**ERR15819127**)  
+**BioProject**: [PRJEB94968](https://www.ebi.ac.uk/ena/browser/view/PRJEB94968) | **Study**: ERP177731  
 **Software Pipeline**: Flye v2.9.6 | Prodigal v2.6.3 | BWA-MEM v0.7.19 | Minimap2 v2.31  
 
 ---
@@ -39,7 +40,7 @@
 
 ---
 
-## 3. Publication Figures
+## 3. Figures
 
 ### Figure 1: Circular Genome Atlas of *Lactiplantibacillus pentosus* LP309
 ![Figure 1: Circular Genome Atlas](../07_figures/Figure1_circular_genome_map.png)
@@ -47,7 +48,7 @@
 
 ---
 
-### Figure 2: Sequencing Quality & Preprocessing Diagnostics
+### Figure 2: Sequencing QC & Preprocessing Diagnostics
 ![Figure 2: Quality Diagnostics](../07_figures/Figure2_qc_and_trimming_profiles.png)
 *Figure 2: High-throughput preprocessing benchmarks: (A) Illumina per-cycle base quality progression, (B) Base composition dynamics, (C) Oxford Nanopore length distribution, and (D) Quality filtering yield benchmarks.*
 
@@ -68,3 +69,13 @@
 ### Figure 5: Functional Genome Annotation Breakdown
 ![Figure 5: Functional Annotation](../07_figures/Figure5_functional_annotation_summary.png)
 *Figure 5: High-resolution structural and functional genome annotation: (A) CDS length distribution, (B) Translation initiation start codon usage, (C) Replicon gene density, and (D) Coding GC density profile.*
+
+---
+
+## 4. Data Availability & References
+
+The sequencing datasets analyzed in this study are available in public archives under the following accessions:
+
+* **Short-Read Dataset**: ENA / NCBI SRA run [ERR15819122](https://www.ebi.ac.uk/ena/browser/view/ERR15819122) (Illumina NovaSeq 6000 paired-end, BioSample: SAMEA118838869, BioProject: PRJEB94968).
+* **Long-Read Dataset**: ENA / NCBI SRA run [ERR15819127](https://www.ebi.ac.uk/ena/browser/view/ERR15819127) (Oxford Nanopore MinION single-end, BioSample: SAMEA120476444, BioProject: PRJEB94968).
+* **Submitter Organization**: Instituto de la Grasa (CSIC), Seville, Spain.

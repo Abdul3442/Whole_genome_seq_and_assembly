@@ -43,7 +43,7 @@ bash scripts/03_genome_annotation.sh
 log_header "STAGE 4: Read Alignment & Coverage Profiling"
 bash scripts/04_read_alignment.sh
 
-log_header "STAGE 5: Publication-Grade Visualizations (300 DPI)"
+log_header "STAGE 5: Figures Generation (300 DPI)"
 bash scripts/06_generate_figures.sh
 
 log_header "STAGE 6: Humanized Reports Compilation"

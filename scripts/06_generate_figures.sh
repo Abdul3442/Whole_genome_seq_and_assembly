@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # Script: 06_generate_figures.sh
-# Purpose: Generate 300-DPI publication figures in outputs/07_figures/
+# Purpose: Generate 300-DPI figures in outputs/07_figures/
 # ==============================================================================
 
 set -euo pipefail
@@ -13,7 +13,7 @@ cd "${PROJECT_DIR}"
 mkdir -p outputs/07_figures
 
 echo "=========================================================="
-echo ">>> STEP 6: Generating Publication Figures (Linux Shell)"
+echo ">>> STEP 6: Generating Figures (Linux Shell)"
 echo "=========================================================="
 
 echo "[INFO] Generating Figure 1: Circular Genome Map..."
@@ -31,5 +31,5 @@ echo "[INFO] Generating Figure 4: Sequencing Coverage Depth..."
 echo "[INFO] Generating Figure 5: Functional Genome Annotation..."
 "${ENV_PYTHON}" scripts/generate_functional_figures.py
 
-echo "[SUCCESS] All publication figures verified:"
+echo "[SUCCESS] All figures verified:"
 ls -lh outputs/07_figures/*.png outputs/07_figures/*.pdf

@@ -23,7 +23,7 @@ This repository contains an end-to-end, reproducible Whole Genome Sequencing (WG
 
 ---
 
-## 📊 Publication Figures
+## 📊 Figures
 
 ### Figure 1: Circular Genome Atlas
 Chromosome Contig 1 (2.16 Mbp), Forward/Reverse Coding Sequences, GC Content & GC Skew dynamics:
@@ -66,6 +66,36 @@ CDS length spectrum, canonical (ATG 83.6%) & alternative start codon usage, and 
 
 ---
 
+## 📚 Data Availability & References
+
+The raw sequencing datasets for *Lactiplantibacillus pentosus* LP309 were deposited in and retrieved from the European Nucleotide Archive (ENA) and NCBI Sequence Read Archive (SRA):
+
+1. **Short-Read Sequencing (Illumina NovaSeq 6000)**:
+   * **Accession**: **ERR15819122**
+   * **BioProject**: [PRJEB94968](https://www.ebi.ac.uk/ena/browser/view/PRJEB94968)
+   * **BioSample**: [SAMEA118838869](https://www.ebi.ac.uk/ena/browser/view/SAMEA118838869)
+   * **Experiment**: ERX15219392
+   * **SRA Run Link**: [ERR15819122 on NCBI SRA](https://trace.ncbi.nlm.nih.gov/Traces/?view=run_browser&acc=ERR15819122) / [ERR15819122 on ENA](https://www.ebi.ac.uk/ena/browser/view/ERR15819122)
+   * **Center**: Instituto de la Grasa (CSIC), Spain
+
+2. **Long-Read Sequencing (Oxford Nanopore MinION)**:
+   * **Accession**: **ERR15819127**
+   * **BioProject**: [PRJEB94968](https://www.ebi.ac.uk/ena/browser/view/PRJEB94968)
+   * **BioSample**: [SAMEA120476444](https://www.ebi.ac.uk/ena/browser/view/SAMEA120476444)
+   * **Experiment**: ERX15219397
+   * **SRA Run Link**: [ERR15819127 on NCBI SRA](https://trace.ncbi.nlm.nih.gov/Traces/?view=run_browser&acc=ERR15819127) / [ERR15819127 on ENA](https://www.ebi.ac.uk/ena/browser/view/ERR15819127)
+   * **Center**: Instituto de la Grasa (CSIC), Spain
+
+### Software Tools & Citations
+* **Flye**: Kolmogorov, M., et al. (2019). *Assembly of long, error-prone reads using repeat graphs*. Nature Biotechnology, 37(5), 540-546.
+* **fastp**: Chen, S., et al. (2018). *fastp: an ultra-fast all-in-one FASTQ preprocessor*. Bioinformatics, 34(17), i884-i890.
+* **Prodigal**: Hyatt, D., et al. (2010). *Prodigal: prokaryotic gene recognition and translation initiation site identification*. BMC Bioinformatics, 11(1), 119.
+* **BWA**: Li, H., & Durbin, R. (2009). *Fast and accurate short read alignment with Burrows-Wheeler transform*. Bioinformatics, 25(14), 1754-1760.
+* **Minimap2**: Li, H. (2018). *Minimap2: pairwise alignment for nucleotide sequences*. Bioinformatics, 34(18), 3094-3100.
+* **SAMtools**: Danecek, P., et al. (2021). *Twelve years of SAMtools and BCFtools*. GigaScience, 10(2), giab008.
+
+---
+
 ## 🚀 Pipeline Execution
 
 Clone the repository and run the automated Linux shell script:
@@ -87,7 +117,7 @@ Individual workflow stages can also be executed independently:
 ./scripts/03_genome_annotation.sh    # Prodigal prokaryotic CDS prediction
 ./scripts/04_read_alignment.sh       # BWA-MEM and Minimap2 read mapping
 ./scripts/06_generate_figures.sh     # High-resolution 300 DPI figures
-./scripts/05_generate_reports.sh     # HTML and text reports compilation
+./scripts/05_generate_reports.sh     # Markdown and text reports compilation
 ```
 
 ---
@@ -117,8 +147,8 @@ Whole_genome_seq_and_assembly/
     ├── 04_evaluation/              # Assembly metrics TSV and summary
     ├── 05_annotation/              # annotation.gff, proteins.faa, genes.fna
     ├── 06_alignment/               # Alignment flagstat metrics
-    ├── 07_figures/                 # 300 DPI PNG and vector PDF publication figures
-    └── 08_reports/                 # HTML report, executive summaries, and TSV tables
+    ├── 07_figures/                 # 300 DPI PNG and vector PDF figures
+    └── 08_reports/                 # Markdown report, executive summaries, and TSV tables
 ```
 
 ---

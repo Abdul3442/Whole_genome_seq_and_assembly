@@ -1,18 +1,19 @@
 ================================================================================
 WHOLE GENOME SEQUENCING & HYBRID ASSEMBLY: EXECUTIVE REPORT
 Organism: Lactiplantibacillus pentosus LP309 (NCBI TaxID: 1589)
+Data Accessions: ERR15819122 (Illumina NovaSeq) | ERR15819127 (Nanopore MinION)
 ================================================================================
 
 1. SEQUENCING DATA & QUALITY CONTROL
 --------------------------------------------------------------------------------
-* Illumina NovaSeq 6000:
+* Illumina NovaSeq 6000 (Accession: ERR15819122):
   - Raw Read Pairs:       10,748,663 (3,218,270,738 bp / ~3.22 Gbp)
   - Post-filter Clean:    10,556,659 pairs (3,160,486,122 bp / ~3.16 Gbp)
   - Clean Retention:      98.21%
   - Base Quality:         Q20 >= 97.39%, Q30 >= 92.33%
   - NovaSeq Artifacts:    PolyG tails trimmed; adapter dimers = 0
 
-* Oxford Nanopore MinION:
+* Oxford Nanopore MinION (Accession: ERR15819127):
   - Raw Long Reads:       233,486 reads (650,548,725 bp / ~650.5 Mbp)
   - Cleaned Long Reads:   119,497 reads (594,023,898 bp / ~594.0 Mbp)
   - Length Threshold:     >= 1,000 bp (Quality Q >= 10)
@@ -57,11 +58,17 @@ Organism: Lactiplantibacillus pentosus LP309 (NCBI TaxID: 1589)
 * Mean Short-Read Depth:  ~680X
 * Mean Long-Read Depth:   ~159X
 
-6. DELIVERABLE PUBLICATION FIGURES (300 DPI)
+6. FIGURES (300 DPI)
 --------------------------------------------------------------------------------
 * Figure 1: Circular Genome Atlas (Chromosome contig_1, CDS, GC & GC Skew)
 * Figure 2: Sequencing QC & Trimming Diagnostics (NovaSeq + MinION)
 * Figure 3: De Novo Assembly Contiguity & Plasmid Spectrum
 * Figure 4: Hybrid Sequencing Coverage Depth Profiles
 * Figure 5: Functional & Structural Genome Annotation Breakdown
+
+7. DATA REFERENCES & ACCESSIONS
+--------------------------------------------------------------------------------
+* ENA / SRA Short-Read:   ERR15819122 (PRJEB94968, SAMEA118838869)
+* ENA / SRA Long-Read:    ERR15819127 (PRJEB94968, SAMEA120476444)
+* Submitter Institution:  Instituto de la Grasa (CSIC), Spain
 ================================================================================
